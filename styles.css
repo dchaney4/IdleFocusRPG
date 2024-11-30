@@ -1,3 +1,51 @@
 /* styles.css */
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    text-align:center;
+    background-color:plum;
+}
 
+.content {
+    flex: 1;
+}
+
+.container {
+    text-align: center;
+}
+
+#start-button {
+    background-color: #007bff;
+    color: black;
+    border: 2px solid gray;
+    padding: 6px 10px;
+    font-size: .75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#start-button:hover {
+    background-color: #0068d8;
+    box-shadow: 0 8px 10px 0 rgba(0,0,0,0.24), 0 12px 35px 0 rgba(0,0,0,0.19);
+}
+
+#start-button:active {
+    background-color: #003f7f;
+}
+
+#timer {
+    border: 2px solid black;
+    color: black;
+    background-color:aquamarine;
+    font-family:"copperplate", 'Times New Roman', Times, serif;
+}
+.footer {
+    background-color:gray;
+    text-align:center;
+    padding: 4px;
+    font-size: 9px;
+}
 /* Add styles here to customize the appearance of your app */
