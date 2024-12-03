@@ -10,7 +10,14 @@ function createWindow () {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     },
-    autoHideMenuBar: true 
+    autoHideMenuBar: true,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#2f3241',
+      symbolColor: '#74b1be',
+      height: 30,
+    },
+    ...(process.platform !== 'darwin' ? { titleBarOverlay: true } : {})
   })
 
   // and load the index.html of the app.
