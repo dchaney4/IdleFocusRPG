@@ -4,9 +4,13 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    text-align:center;
-    background-color:plum;
-    app-region: drag;
+    text-align:center;  
+    background-image: url("river_pixel.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color:rgb(38, 231, 231);
+    -webkit-app-region: drag;
 }
 
 .content {

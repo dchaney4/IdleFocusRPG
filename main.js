@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { ipcMain, app, BrowserWindow } = require('electron')
 const path = require('node:path')
 
 function createWindow () {
@@ -20,11 +20,39 @@ function createWindow () {
     ...(process.platform !== 'darwin' ? { titleBarOverlay: true } : {})
   })
 
+
+
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
+  //Hide main window
+  ipcMain.on('open-secondary-window', () => {
+    createSecondaryWindow();
+    mainWindow.hide();
+  });
+
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+}
+
+function createSecondaryWindow() {
+  if (secondaryWindow) return;
+  secondaryWindow = new BrowserWindow({
+    width: 75,
+    height:75,
+    frame: false,
+    roundedCorners: true,
+    webPreferences: {
+      preload: __dirname + '/preload.js',
+    },
+  });
+
+  secondaryWindow.loadFile('secondary.html');
+
+  secondaryWindow.on('closed', () => {
+    secondaryWindow = null;
+    mainWindow.show();
+  });
 }
 
 // This method will be called when Electron has finished

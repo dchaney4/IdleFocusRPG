@@ -25,5 +25,6 @@ document.getElementById('start-button').addEventListener('click', () => {
         document.getElementById('timer').textContent = timer;
         }, 1000);
         button.textContext = "Stop";
+        window.electronAPI.openSecondaryWindow();
     }
   });
