@@ -11,18 +11,13 @@ app.on('ready', () => {
     width: 250,
     height: 300,
     resizable: false,
+    frame: false,
     webPreferences: {
       preload: __dirname + '/preload.js', // Enable preload for IPC
       nodeIntegration: true 
     },
     autoHideMenuBar: true,
-    titleBarStyle: 'hidden',
-    titleBarOverlay: {
-      color: '#2f3241',
-      symbolColor: '#74b1be',
-      height: 30,
-    },
-    ...(process.platform !== 'darwin' ? { titleBarOverlay: true } : {})
+    
     
   });
   console.log('MainWindow:', mainWindow);
