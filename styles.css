@@ -10,7 +10,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-color:rgb(38, 231, 231);
-    -webkit-app-region: drag;
+    -webkit-app-region: drag; 
 }
 
 .content {
@@ -30,6 +30,7 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    -webkit-app-region: no-drag;
 }
 
 #start-button:hover {
@@ -41,6 +42,17 @@ body {
     background-color: #003f7f;
 }
 
+#stop-button {
+    background-color: #b60303;
+    color: rgb(255, 255, 255);
+    border: 2px solid gray;
+    padding: 4px 4px;
+    font-size: .75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-app-region: no-drag;
+}
 #timer {
     border: 2px solid black;
     color: black;

@@ -2,13 +2,16 @@
 const { ipcMain, app, BrowserWindow } = require('electron')
 const path = require('node:path')
 
-function createWindow () {
+let mainWindow;
+let secondaryWindow;
+
+app.on('ready', () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 300,
     height: 400,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: __dirname + '/preload.js', // Enable preload for IPC
     },
     autoHideMenuBar: true,
     titleBarStyle: 'hidden',
@@ -18,55 +21,45 @@ function createWindow () {
       height: 30,
     },
     ...(process.platform !== 'darwin' ? { titleBarOverlay: true } : {})
-  })
-
-
-
-  // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
-
-  //Hide main window
-  ipcMain.on('open-secondary-window', () => {
-    createSecondaryWindow();
-    mainWindow.hide();
+    
   });
+  console.log('MainWindow:', mainWindow);
+  mainWindow.loadFile('index.html'); // Load the main window HTML
+});
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
-}
+// Handle the button click from the renderer process
+ipcMain.on('open-secondary-window', () => {
+  // Hide the main window if needed
+  mainWindow.hide();
 
-function createSecondaryWindow() {
-  if (secondaryWindow) return;
+  // Create the secondary window
   secondaryWindow = new BrowserWindow({
-    width: 75,
-    height:75,
+    width: 150,
+    height: 200,
     frame: false,
     roundedCorners: true,
     webPreferences: {
-      preload: __dirname + '/preload.js',
+      nodeIntegration: true, // Optional depending on your setup
     },
   });
 
-  secondaryWindow.loadFile('secondary.html');
+  secondaryWindow.loadFile('secondary.html'); // Load the secondary window HTML
 
+  
+  
+
+  // Handle when the secondary window is closed
   secondaryWindow.on('closed', () => {
     secondaryWindow = null;
-    mainWindow.show();
+    mainWindow.show(); // Show the main window again
   });
-}
+});
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
-  createWindow()
+// Quit the app when all windows are closed
+app.on('window-all-closed', () => {
+  app.quit();
+});
 
-  app.on('activate', function () {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
-})
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
