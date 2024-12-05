@@ -7,12 +7,13 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    text-align:center;  
+    text-align: center;  
     background-image: url("river_pixel.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-color:rgb(38, 231, 231);
+    background-attachment: fixed;
     -webkit-app-region: drag; 
 }
 
@@ -26,6 +27,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    min-height: 100vh;
 }
 
 #secondary-body {
@@ -74,9 +77,24 @@ main {
     -webkit-app-region: no-drag;
 }
 #timer {
+    padding: 4px;
+    width: 50%;
     border: 2px solid black;
     color: black;
-    background-color:aquamarine;
+    background-color:rgb(191, 224, 213);
+    font-family:"copperplate", 'Times New Roman', Times, serif;
+}
+
+#sprite {
+    padding: 4px;
+    margin: auto;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px solid black;
+    color: black;
+    background-color:rgb(176, 226, 209);
     font-family:"copperplate", 'Times New Roman', Times, serif;
 }
 .footer {
