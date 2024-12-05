@@ -1,6 +1,35 @@
 /* styles.css */
 body {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-align:center;  
+    background-image: url("river_pixel.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color:rgb(38, 231, 231);
+    -webkit-app-region: drag; 
+}
+
+main {
+    flex: 1;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#secondary-body {
+    margin: 0;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -12,15 +41,6 @@ body {
     background-color:rgb(38, 231, 231);
     -webkit-app-region: drag; 
 }
-
-.content {
-    flex: 1;
-}
-
-.container {
-    text-align: center;
-}
-
 #start-button {
     background-color: #007bff;
     color: black;
@@ -60,9 +80,14 @@ body {
     font-family:"copperplate", 'Times New Roman', Times, serif;
 }
 .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px; /* Adjust height as needed */
+    padding: 3px;
     background-color:gray;
     text-align:center;
-    padding: 4px;
     font-size: 9px;
 }
 /* Add styles here to customize the appearance of your app */

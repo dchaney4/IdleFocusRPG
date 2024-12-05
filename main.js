@@ -8,10 +8,12 @@ let secondaryWindow;
 app.on('ready', () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 300,
-    height: 400,
+    width: 250,
+    height: 300,
+    resizable: false,
     webPreferences: {
       preload: __dirname + '/preload.js', // Enable preload for IPC
+      nodeIntegration: true 
     },
     autoHideMenuBar: true,
     titleBarStyle: 'hidden',
@@ -36,6 +38,7 @@ ipcMain.on('open-secondary-window', () => {
   secondaryWindow = new BrowserWindow({
     width: 150,
     height: 200,
+    resizable: false,
     frame: false,
     roundedCorners: true,
     webPreferences: {
