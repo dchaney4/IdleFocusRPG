@@ -13,8 +13,10 @@ app.on('ready', () => {
     resizable: false,
     frame: false,
     webPreferences: {
-      preload: __dirname + '/preload.js', // Enable preload for IPC
-      nodeIntegration: true 
+      preload: path.join(__dirname + '/preload.js'), // Enable preload for IPC
+      nodeIntegration: false,
+      enableRemoteModule: false,
+      contextIsolation: true,
     },
     autoHideMenuBar: true,
     
@@ -27,6 +29,8 @@ app.on('ready', () => {
 // Handle the button click from the renderer process
 ipcMain.on('open-secondary-window', () => {
   // Hide the main window if needed
+  console.log('IPC message received: open-secondary-window'); // Log when IPC message is received
+
   mainWindow.hide();
 
   // Create the secondary window

@@ -6,11 +6,22 @@
  * to expose Node.js functionality from the main process.
  */
 // Add an event listener to the button
-document.addEventListener('DOMContentLoaded', () => {
-    const openSecondaryButton = document.getElementById('start-button');
-    openSecondaryButton.addEventListener('click', () => {
-      // Call the exposed API to send the IPC message
-      window.electronAPI.openSecondaryWindow();
-    });
-  });
+// Wait until the DOM is fully loaded
+window.addEventListener('load', () => {
+  // Try to find the button
+  const openSecondaryButton = document.getElementById('start-button');
   
+  // Add additional debugging
+  console.log('Document loaded');
+  console.log('Button search result:', openSecondaryButton);
+
+  // Check if button exists before adding event listener
+  if (openSecondaryButton) {
+      openSecondaryButton.addEventListener('click', () => {
+          console.log('Start button clicked!');
+          window.electronAPI.openSecondaryWindow();
+      });
+  } else {
+      console.error('Start button not found in the document');
+  }
+});

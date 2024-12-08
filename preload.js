@@ -8,5 +8,8 @@
  */
 const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('electronAPI', {
-    openSecondaryWindow: () => ipcRenderer.send('open-secondary-window'),
+    openSecondaryWindow: () => {
+        console.log('openSecondaryWindow called in preload');
+        ipcRenderer.send('open-secondary-window')
+    }
 });

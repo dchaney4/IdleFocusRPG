@@ -7,7 +7,6 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    flex: 1;
     overflow: hidden;
     text-align: center;  
     background-image: url("river_pixel.jpg");
@@ -16,7 +15,16 @@ body {
     background-size: cover;
     background-color:rgb(38, 231, 231);
     background-attachment: fixed;
-    -webkit-app-region: drag; 
+    padding-bottom: 20px; /*offset footer height*/
+    user-select: none;
+}
+
+#app {
+    width: 100%;
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    -webkit-app-region: drag;
 }
 
 #title-bar {
@@ -24,16 +32,21 @@ body {
     height: 20px;
     text-align: center;
     background-color: green;
-    border: 2px, solid, gray;
-}
-.container {
-    width: 100%;
-    height: 100%;
+    border-bottom: 2px solid gray;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    position: relative;
-    min-height: 100vh;
+}
+
+#main-content {
+    flex: 1; /* Take up remaining space after title bar and footer */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    padding: 10px;
 }
 
 #secondary-body {
@@ -47,7 +60,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-color:rgb(38, 231, 231);
-    -webkit-app-region: drag; 
 }
 #start-button {
     background-color: #007bff;
@@ -59,6 +71,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     -webkit-app-region: no-drag;
+    width: auto;
 }
 
 #start-button:hover {
@@ -103,7 +116,6 @@ body {
     font-family:"copperplate", 'Times New Roman', Times, serif;
 }
 .footer {
-    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -112,5 +124,7 @@ body {
     background-color:gray;
     text-align:center;
     font-size: 9px;
+    -webkit-app-region: drag;
+    margin-top: auto;
 }
 /* Add styles here to customize the appearance of your app */
