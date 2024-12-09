@@ -94,6 +94,16 @@ body {
     transition: background-color 0.3s ease;
     -webkit-app-region: no-drag;
 }
+
+h1 {
+    font-family: 'Tiny5', sans-serif;
+    font-weight: 450;
+    font-style: normal;
+    font-size: 2rem;
+    backdrop-filter: blur(5px); /* Blurs everything behind it */
+    background-color: rgba(255, 255, 255, 0.2); /* Slight white background */
+    color: black;
+}
 #timer {
     padding: 4px;
     width: 50%;
