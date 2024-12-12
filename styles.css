@@ -31,11 +31,33 @@ body {
     width: 100%;
     height: 20px;
     text-align: center;
-    background-color: green;
-    border-bottom: 2px solid gray;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+
+.title-button {
+    background-color: black;
+    color: white;
+    border: 2px solid gray;
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: .75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-app-region: no-drag;
+    width: auto;
+}
+
+.title-button:hover {
+    background-color: rgb(49, 47, 47);
+    box-shadow: 0 8px 10px 0 rgba(0,0,0,0.24), 0 12px 35px 0 rgba(0,0,0,0.19);
+}
+
+.title-button:active {
+    background-color: #424242;
 }
 
 #main-content {
@@ -46,7 +68,7 @@ body {
     justify-content: center;
     text-align: center;
     gap: 10px;
-    padding: 10px;
+    padding-bottom: 100px;
 }
 
 #secondary-body {
@@ -114,15 +136,16 @@ h1 {
 }
 
 #sprite {
-    padding: 10px;
     margin: auto;
-    width: 50%;
+    width: 60px;
+    height: 85px;
     align-items: center;
     justify-content: center;
     text-align: center;
-    border: 2px solid black;
-    color: black;
-    background-color:rgb(176, 226, 209);
+    background: url('pixel_man2.png') 0 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family:"copperplate", 'Times New Roman', Times, serif;
 }
 .footer {
@@ -136,5 +159,6 @@ h1 {
     font-size: 9px;
     -webkit-app-region: drag;
     margin-top: auto;
+    position: fixed;
 }
 /* Add styles here to customize the appearance of your app */

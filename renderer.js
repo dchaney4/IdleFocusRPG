@@ -25,3 +25,26 @@ window.addEventListener('load', () => {
       console.error('Start button not found in the document');
   }
 });
+
+const titleBar = document.getElementById('title-bar');
+
+titleBar.addEventListener('click', (event) => {
+  if (!event.target.classList.contains('title-button')) return; // Ignore clicks outside buttons
+  
+  switch (event.target.id) {
+    case 'minimize-button':
+      console.log('Minimize button clicked');
+      // Add logic to minimize window here
+      break;
+
+    case 'maximize-button':
+      console.log('Maximize button clicked');
+      // Add logic to maximize window here
+      break;
+
+    case 'close-button':
+      console.log('Close button clicked');
+      // Add logic to close window here
+      break;
+  }
+});
