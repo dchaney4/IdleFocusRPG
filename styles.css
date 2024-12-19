@@ -75,17 +75,33 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    align-items: center; 
+    justify-content: center;
     height: 100vh;
-    text-align:center;  
+    width: 100%;
+    text-align: center;  
     background-image: url("river_pixel.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-color:rgb(38, 231, 231);
+    -webkit-app-region: drag;
 }
+
+#secondary-body .content {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    width: 100%; 
+}
+
 #start-button {
     background-color: #007bff;
     color: black;
+    font-family: 'Tiny5', sans-serif;
+    font-weight: 450;
+    font-style: normal;
     border: 2px solid gray;
     padding: 6px 10px;
     font-size: .75rem;
@@ -107,14 +123,27 @@ body {
 
 #stop-button {
     background-color: #b60303;
-    color: rgb(255, 255, 255);
+    color: black;
+    font-family: 'Tiny5', sans-serif;
+    font-weight: 450;
+    font-style: normal;
     border: 2px solid gray;
-    padding: 4px 4px;
     font-size: .75rem;
+    padding: 6px 10px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     -webkit-app-region: no-drag;
+    width: auto;
+}
+
+#stop-button:hover {
+    background-color: #a10000;
+    box-shadow: 0 8px 10px 0 rgba(0,0,0,0.24), 0 12px 35px 0 rgba(0,0,0,0.19);
+}
+
+#stop-button:active {
+    background-color: #5a0000;
 }
 
 h1 {
@@ -126,13 +155,18 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2); /* Slight white background */
     color: black;
 }
+
 #timer {
-    padding: 4px;
-    width: 50%;
-    border: 2px solid black;
+    padding: 2px 2px 2px;
+    width: 25%;
+    font-family: 'Tiny5', sans-serif;
+    font-weight: 450;
+    font-style: normal;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    backdrop-filter: blur(5px); /* Blurs everything behind it */
+    background-color: rgba(255, 255, 255, 0.2); /* Slight white background */
     color: black;
-    background-color:rgb(191, 224, 213);
-    font-family:"copperplate", 'Times New Roman', Times, serif;
 }
 
 #sprite {
@@ -147,6 +181,14 @@ h1 {
     background-repeat: no-repeat;
     background-size: cover;
     font-family:"copperplate", 'Times New Roman', Times, serif;
+}
+
+#secondary-body #sprite {
+    width: 60px; 
+    height: 85px; 
+    background: url('pixel_man2.png') center center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
 }
 .footer {
     bottom: 0;

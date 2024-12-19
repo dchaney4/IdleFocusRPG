@@ -7,9 +7,22 @@
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
  */
 const { contextBridge, ipcRenderer } = require('electron');
+
 contextBridge.exposeInMainWorld('electronAPI', {
-    openSecondaryWindow: () => {
-        console.log('openSecondaryWindow called in preload');
-        ipcRenderer.send('open-secondary-window')
-    }
+  openSecondaryWindow: () => {
+    console.log('openSecondaryWindow called in preload');
+    ipcRenderer.send('open-secondary-window');
+  },
+  minimizeWindow: () => {
+    console.log('minimizeWindow called in preload');
+    ipcRenderer.send('minimize-window');
+  },
+  closeWindow: () => {
+    console.log('closeWindow called in preload');
+    ipcRenderer.send('close-window');
+  },
+  stopTimer: () => {
+    console.log('Stop timer triggered in renderer');
+    ipcRenderer.send('stop-button'); // Send message to stop the timer
+  }
 });

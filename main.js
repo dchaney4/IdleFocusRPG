@@ -4,12 +4,15 @@ const path = require('node:path')
 
 let mainWindow;
 let secondaryWindow;
+let windowPosition = {x: 0, y: 0 };
 
 app.on('ready', () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 250,
     height: 300,
+    x: windowPosition.x, 
+    y: windowPosition.y,
     resizable: false,
     frame: false,
     webPreferences: {
@@ -17,13 +20,16 @@ app.on('ready', () => {
       nodeIntegration: false,
       enableRemoteModule: false,
       contextIsolation: true,
-    },
+      },
     autoHideMenuBar: true,
-    
-    
-  });
-  console.log('MainWindow:', mainWindow);
+    });
+
   mainWindow.loadFile('index.html'); // Load the main window HTML
+
+  mainWindow.on('close', () => {
+    // Save the current position before the window closes
+    windowPosition = mainWindow.getBounds();
+  });
 });
 
 // Handle the button click from the renderer process
@@ -32,11 +38,26 @@ ipcMain.on('open-secondary-window', () => {
   console.log('IPC message received: open-secondary-window'); // Log when IPC message is received
 
   mainWindow.hide();
+  const { x, y, width, height } = mainWindow.getBounds();
+  
+  // Calculate the center of the main window
+  const centerX = x + width / 2;
+  const centerY = y + height / 2;
+
+  // Define the size of the secondary window
+  const newWidth = 150;
+  const newHeight = 200;
+
+  // Calculate the top-left coordinates for the secondary window to be centered
+  const newX = Math.round(centerX - newWidth / 2);
+  const newY = Math.round(centerY - newHeight / 2);
 
   // Create the secondary window
   secondaryWindow = new BrowserWindow({
-    width: 150,
-    height: 200,
+    width: newWidth,
+    height: newHeight,
+    x: newX,
+    y: newY,
     resizable: false,
     frame: false,
     roundedCorners: true,
@@ -46,8 +67,24 @@ ipcMain.on('open-secondary-window', () => {
   });
 
   secondaryWindow.loadFile('secondary.html'); // Load the secondary window HTML
+  secondaryWindow.on('close', () => {
+    const { x, y, width, height } = secondaryWindow.getBounds();
+    windowPosition = { x, y }; // Save the top-left corner position of the secondary window
 
-  
+    // Calculate the position to re-center the main window relative to the secondary window's position
+    const mainWidth = 250;
+    const mainHeight = 300;
+
+    const newMainX = Math.round(x + (width / 2) - (mainWidth / 2));
+    const newMainY = Math.round(y + (height / 2) - (mainHeight / 2));
+
+    mainWindow.setBounds({
+      x: newMainX,
+      y: newMainY,
+      width: mainWidth,
+      height: mainHeight,
+    });
+  });
   
 
   // Handle when the secondary window is closed
@@ -57,6 +94,23 @@ ipcMain.on('open-secondary-window', () => {
   });
 });
 
+ipcMain.on('minimize-window', () => {
+  if (mainWindow) {
+    mainWindow.minimize();
+  }
+});
+
+ipcMain.on('close-window', () => {
+  if (mainWindow) {
+    mainWindow.close();
+  }
+});
+
+ipcMain.on('stop-button', () => {
+  if (secondaryWindow) {
+    secondaryWindow.close();
+  }
+});
 // Quit the app when all windows are closed
 app.on('window-all-closed', () => {
   app.quit();
