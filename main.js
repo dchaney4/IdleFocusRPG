@@ -63,6 +63,7 @@ ipcMain.on('open-secondary-window', () => {
     roundedCorners: true,
     webPreferences: {
       nodeIntegration: true, // Optional depending on your setup
+      preload: path.join(__dirname + '/preload.js'),
     },
   });
 
@@ -94,6 +95,13 @@ ipcMain.on('open-secondary-window', () => {
   });
 });
 
+ipcMain.on('stop-button', () => {
+  if (secondaryWindow) {
+    secondaryWindow.close();
+    secondaryWindow = null;
+  }
+});
+
 ipcMain.on('minimize-window', () => {
   if (mainWindow) {
     mainWindow.minimize();
@@ -106,18 +114,6 @@ ipcMain.on('close-window', () => {
   }
 });
 
-ipcMain.on('stop-button', () => {
-  if (secondaryWindow) {
-    secondaryWindow.close();
-  }
-});
-
-ipcMain.on('stop-timer', () => {
-  console.log('Stop timer command received in main process');
-  if (secondaryWindow) {
-      secondaryWindow.close();
-  }
-});
 // Quit the app when all windows are closed
 app.on('window-all-closed', () => {
   app.quit();

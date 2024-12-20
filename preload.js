@@ -21,8 +21,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     console.log('closeWindow called in preload');
     ipcRenderer.send('close-window');
   },
-  stopTimer: () => {
-    console.log('Stop timer triggered in renderer');
+  stopButton: () => {
+    console.log('Stop timer triggered in preload');
     ipcRenderer.send('stop-button'); // Send message to stop the timer
   },
   onTimerUpdate: (callback) => {
