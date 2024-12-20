@@ -10,12 +10,6 @@
 window.addEventListener('load', () => {
   // Try to find the button
     const openSecondaryButton = document.getElementById('start-button');
-    const stopButton = document.getElementById('stop-button'); // Stop button reference
-    const timer = document.getElementById('timer'); // Timer display reference
-
-    let timerInterval;
-    let elapsedTime = 0;
-
   // Add additional debugging
     console.log('Document loaded');
     console.log('Button search result:', openSecondaryButton);
@@ -25,22 +19,10 @@ window.addEventListener('load', () => {
       openSecondaryButton.addEventListener('click', () => {
           console.log('Start button clicked!');
           window.electronAPI.openSecondaryWindow();
-          startTimer();
       });
     } 
     else {
       console.error('Start button not found in the document');
-    } 
-
-    if (stopButton) {
-        stopButton.addEventListener('click', () => {
-            console.log('Stop button clicked!');
-            stopTimer();
-            window.electronAPI.stopTimer();
-        });
-    } 
-    else {
-        console.error('Stop button not found in the document');
     }
 
     const titleBar = document.getElementById('title-bar');
@@ -60,19 +42,4 @@ window.addEventListener('load', () => {
         break;
     }
     });
-
-    function startTimer() {
-        // Check if a timer is already running
-        timerInterval = setInterval(() => {
-        elapsedTime++;
-        timerDisplay.textContent = `${elapsedTime}`; // Update the display
-        }, 1000); // Run every second
-    }
-
-    function stopTimer() {
-        clearInterval(timerInterval); // Stop the interval
-        timerInterval = null; // Clear the stored interval ID
-        elapsedTime = 0; // Reset the time
-        timer.textContent = '0'; // Reset display
-    }
 });

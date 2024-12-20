@@ -24,5 +24,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
   stopTimer: () => {
     console.log('Stop timer triggered in renderer');
     ipcRenderer.send('stop-button'); // Send message to stop the timer
-  }
+  },
+  onTimerUpdate: (callback) => {
+    ipcRenderer.on('update-timer', (_, value) => callback(value));
+    },
 });

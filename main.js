@@ -111,6 +111,13 @@ ipcMain.on('stop-button', () => {
     secondaryWindow.close();
   }
 });
+
+ipcMain.on('stop-timer', () => {
+  console.log('Stop timer command received in main process');
+  if (secondaryWindow) {
+      secondaryWindow.close();
+  }
+});
 // Quit the app when all windows are closed
 app.on('window-all-closed', () => {
   app.quit();
