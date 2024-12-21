@@ -97,6 +97,7 @@ body {
 }
 
 #start-button {
+    text-align: center;
     background-color: #007bff;
     color: black;
     font-family: 'Tiny5', sans-serif;
@@ -121,7 +122,34 @@ body {
     background-color: #003f7f;
 }
 
+#menu-button {
+    text-align: center;
+    background-color: #02c2c9;
+    color: black;
+    font-family: 'Tiny5', sans-serif;
+    font-weight: 450;
+    font-style: normal;
+    border: 2px solid gray;
+    padding: 6px 10px;
+    font-size: .75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-app-region: no-drag;
+    width: auto;
+}
+
+#menu-button:hover {
+    background-color: #0398ac;
+    box-shadow: 0 8px 10px 0 rgba(0,0,0,0.24), 0 12px 35px 0 rgba(0,0,0,0.19);
+}
+
+#menu-button:active {
+    background-color: #026464;
+}
+
 #stop-button {
+    text-align: center;
     background-color: #b60303;
     color: black;
     font-family: 'Tiny5', sans-serif;
@@ -134,7 +162,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     -webkit-app-region: no-drag;
-    width: auto;
+    width: 60px;
 }
 
 #stop-button:hover {
@@ -144,6 +172,32 @@ body {
 
 #stop-button:active {
     background-color: #5a0000;
+}
+
+#pause-button {
+    text-align: center;
+    background-color: #e69e03;
+    color: black;
+    font-family: 'Tiny5', sans-serif;
+    font-weight: 450;
+    font-style: normal;
+    border: 2px solid gray;
+    font-size: 1rem;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-app-region: no-drag;
+    width: 60px;
+}
+
+#pause-button:hover {
+    background-color: #a35d01;
+    box-shadow: 0 8px 10px 0 rgba(0,0,0,0.24), 0 12px 35px 0 rgba(0,0,0,0.19);
+}
+
+#pause-button:active {
+    background-color: #704a02;
 }
 
 h1 {

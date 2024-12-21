@@ -37,12 +37,18 @@ function stopTimer() {
     }
 }
 
+function pauseTimer() {
+    if (timerInterval) {
+        
+    }
+}
 // Start the timer as soon as the window loads
 window.addEventListener('load', () => {
     console.log('Secondary window loaded');
     startTimer();
     
     const stopButton = document.getElementById('stop-button');
+    const pauseButton = document.getElementById('pause-button');
 
     if (stopButton) {
         stopButton.addEventListener('click', () => {
@@ -52,5 +58,15 @@ window.addEventListener('load', () => {
         });
     } else {
         console.error('Stop button not found in secondary window');
+    }
+    if (pauseButton) {
+        stopButton.addEventListener('click', () => {
+            console.log('Pause button cliced in secondary window');
+            pauseTimer();
+            window.electronAPI.paueButton();
+        });
+    }
+    else {
+        console.error('Pause button not found in secondary window');
     }
 });
