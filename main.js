@@ -26,6 +26,15 @@ app.on('ready', () => {
 
   mainWindow.loadFile('index.html'); // Load the main window HTML
 
+  // Open DevTools and set its size and position
+  mainWindow.webContents.openDevTools({ mode: 'detach' });
+  mainWindow.webContents.on('devtools-opened', () => {
+      const devToolsWindow = BrowserWindow.getAllWindows().find(w => w.getTitle() === 'DevTools');
+      if (devToolsWindow) {
+          devToolsWindow.setBounds({ width: 400, height: 300, x: 100, y: 100 });
+      }
+  });
+
   mainWindow.on('close', () => {
     // Save the current position before the window closes
     windowPosition = mainWindow.getBounds();
@@ -103,14 +112,22 @@ ipcMain.on('stop-button', () => {
 });
 
 ipcMain.on('minimize-window', () => {
-  if (mainWindow) {
-    mainWindow.minimize();
+  const focusedWindow = BrowserWindow.getFocusedWindow(); // Get the currently active window
+
+  if (focusedWindow) {
+    focusedWindow.minimize(); // Minimize the active window
+  } else {
+    console.error('No window is currently focused.');
   }
 });
 
 ipcMain.on('close-window', () => {
-  if (mainWindow) {
-    mainWindow.close();
+  const focusedWindow = BrowserWindow.getFocusedWindow(); // Get the currently active window
+
+  if (focusedWindow) {
+    focusedWindow.close(); // Minimize the active window
+  } else {
+    console.error('No window is currently focused.');
   }
 });
 
