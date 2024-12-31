@@ -77,6 +77,17 @@ ipcMain.on('open-secondary-window', () => {
   });
 
   secondaryWindow.loadFile('secondary.html'); // Load the secondary window HTML
+
+  // Open DevTools for the secondary window
+  secondaryWindow.webContents.openDevTools({ mode: 'detach' });
+
+  secondaryWindow.webContents.on('devtools-opened', () => {
+      const devToolsWindow = BrowserWindow.getAllWindows().find(w => w.getTitle() === 'DevTools');
+      if (devToolsWindow) {
+          devToolsWindow.setBounds({ width: 400, height: 300, x: 500, y: 100 }); // Adjust position as needed
+      }
+  });
+  
   secondaryWindow.on('close', () => {
     const { x, y, width, height } = secondaryWindow.getBounds();
     windowPosition = { x, y }; // Save the top-left corner position of the secondary window

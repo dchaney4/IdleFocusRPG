@@ -1,8 +1,13 @@
 let timerInterval;
 let elapsedTime = 0;
 let isPaused = false;
+let coinCountValue = 0;
+
 const timerDisplay = document.getElementById('timer');
 const stopButton = document.getElementById('stop-button');
+const coinCount = document.getElementById('coin-amount');
+const pauseButton = document.getElementById('pause-button');
+const titleBar = document.getElementById('title-bar');
 
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
@@ -14,6 +19,7 @@ function formatTime(seconds) {
     
     return `${formattedMinutes}:${formattedSeconds}`;
 }
+
 
 function startTimer() {
     // Clear any existing interval first
@@ -28,7 +34,12 @@ function startTimer() {
     timerInterval = setInterval(() => {
         elapsedTime++;
         timerDisplay.textContent = formatTime(elapsedTime);
-    }, 1000);
+
+        if (elapsedTime % 10 === 0) { // Check if a minute has passed (elapsedTime % 60 === 0)
+            coinCountValue++;
+            coinCount.textContent = `${coinCountValue}`;
+        }
+        }, 1000);
 
     isPaused = false;
 }
@@ -51,14 +62,14 @@ function pauseTimer() {
         isPaused = true;
     }
 }
+
+
+// Function to add coins every minute
+
 // Start the timer as soon as the window loads
 window.addEventListener('load', () => {
     console.log('Secondary window loaded');
     startTimer();
-    
-    const stopButton = document.getElementById('stop-button');
-    const pauseButton = document.getElementById('pause-button');
-    const titleBar = document.getElementById('title-bar');
 
     if (stopButton) {
         stopButton.addEventListener('click', () => {
