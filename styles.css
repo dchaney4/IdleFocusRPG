@@ -85,6 +85,36 @@ body {
     visibility: visible !important;
 }
 
+
+/* Initial coin style */
+.animated-coin {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url('coin.png') center center;
+    background-size: cover;
+    border-radius: 50%;
+    pointer-events: none; /* Prevent interaction */
+    z-index: 1000;
+    animation: popCoin 2s ease-out forwards;
+}
+
+/* Keyframes for the animation */
+@keyframes popCoin {
+    0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2) translate(-100px, -80px); /* Simulate an arc */
+    }
+    100% {
+        transform: scale(0.5) translate(-50vw -100px); /* End near the title bar */
+        opacity: 0;
+    }
+}
+
+
 #title-controls {
     display: flex;
     justify-content: flex-end;
@@ -202,6 +232,31 @@ body {
     background-color: #026464;
 }
 
+#project-button {
+    text-align: center;
+    background-color: #007bff;
+    color: black;
+    font-family: 'Tiny5', sans-serif;
+    font-weight: 450;
+    font-style: normal;
+    border: 2px solid gray;
+    padding: 6px 10px;
+    font-size: .75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-app-region: no-drag;
+    width: auto;
+}
+
+#project-button:hover {
+    background-color: #0068d8;
+    box-shadow: 0 8px 10px 0 rgba(0,0,0,0.24), 0 12px 35px 0 rgba(0,0,0,0.19);
+}
+
+#project-button:active {
+    background-color: #003f7f;
+}
 #stop-button {
     text-align: center;
     background-color: #b60303;

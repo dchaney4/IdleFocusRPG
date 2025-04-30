@@ -8,38 +8,30 @@ const stopButton = document.getElementById('stop-button');
 const coinCount = document.getElementById('coin-amount');
 const pauseButton = document.getElementById('pause-button');
 const titleBar = document.getElementById('title-bar');
+const coinContainer = document.getElementById('coin-container'); // Added reference to coin container
 
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    
-    // Add leading zeros if needed
-    const formattedMinutes = String(minutes).padStart(2, '0');
-    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
-    
-    return `${formattedMinutes}:${formattedSeconds}`;
+    return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
 }
 
-
 function startTimer() {
-    // Clear any existing interval first
-    if (timerInterval) {
-        clearInterval(timerInterval);
-    }
+    if (timerInterval) clearInterval(timerInterval); // Clear existing interval
 
-    if (!isPaused) {
-        elapsedTime = 0;
-    }
+    if (!isPaused) elapsedTime = 0; // Reset timer if not paused
 
     timerInterval = setInterval(() => {
         elapsedTime++;
         timerDisplay.textContent = formatTime(elapsedTime);
 
-        if (elapsedTime % 10 === 0) { // Check if a minute has passed (elapsedTime % 60 === 0)
+        // Increment coin every 10 seconds and trigger animation
+        if (elapsedTime % 10 === 0) { // Change 10 to 60 for one-minute intervals
             coinCountValue++;
             coinCount.textContent = `${coinCountValue}`;
+            animateCoin(); // Call animation
         }
-        }, 1000);
+    }, 1000);
 
     isPaused = false;
 }
@@ -48,11 +40,10 @@ function stopTimer() {
     if (timerInterval) {
         clearInterval(timerInterval);
         timerInterval = null;
-        elapsedTime = 0;
-        timerDisplay.textContent = '00:00';
-        isPaused = false;
-
     }
+    elapsedTime = 0;
+    timerDisplay.textContent = '00:00';
+    isPaused = false;
 }
 
 function pauseTimer() {
@@ -63,55 +54,61 @@ function pauseTimer() {
     }
 }
 
+function animateCoin() {
+    // Get positions of timer and coin container
+    const timerRect = timerDisplay.getBoundingClientRect();
+    const coinRect = coinContainer.getBoundingClientRect();
 
-// Function to add coins every minute
+    // Create animated coin
+    const animatedCoin = document.createElement('div');
+    animatedCoin.classList.add('animated-coin');
+    document.body.appendChild(animatedCoin);
 
-// Start the timer as soon as the window loads
+    // Trigger reflow to apply animation
+    requestAnimationFrame(() => {
+        animatedCoin.style.transform = `translate(${coinRect.left - timerRect.left}px, ${coinRect.top - timerRect.top}px)`;
+        animatedCoin.style.opacity = 0;
+    });
+
+    // Remove the animated coin after animation ends
+    animatedCoin.addEventListener('transitionend', () => {
+        animatedCoin.remove();
+    });
+}
+
+// Event listeners for buttons
 window.addEventListener('load', () => {
-    console.log('Secondary window loaded');
     startTimer();
 
     if (stopButton) {
         stopButton.addEventListener('click', () => {
-            console.log('Stop button clicked in secondary window');
             stopTimer();
             window.electronAPI.stopButton();
         });
-    } else {
-        console.error('Stop button not found in secondary window');
     }
-    //Change wording on pause button
+
     if (pauseButton) {
         pauseButton.addEventListener('click', () => {
             if (!isPaused) {
-                console.log('Pause button clicked in secondary window');
                 pauseTimer();
                 pauseButton.innerHTML = '<span>Resume</span>';
-            }
-            else {
-                console.log('Timer resumed');
+            } else {
                 startTimer();
                 pauseButton.innerHTML = '<span>Pause</span>';
             }
         });
     }
-    else {
-        console.error('Pause button not found in secondary window');
-    }
 
     titleBar.addEventListener('click', (event) => {
-        if (!event.target.classList.contains('title-button')) return; // Ignore clicks outside buttons
-        
+        if (!event.target.classList.contains('title-button')) return;
+
         switch (event.target.id) {
             case 'minimize-button':
-            console.log('Minimize button clicked');
-            window.electronAPI.minimizeWindow();
-            break;
-    
+                window.electronAPI.minimizeWindow();
+                break;
             case 'close-button':
-            console.log('Close button clicked');
-            window.electronAPI.closeWindow();
-            break;
+                window.electronAPI.closeWindow();
+                break;
         }
     });
 });
