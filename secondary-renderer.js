@@ -6,6 +6,7 @@ let coinCountValue = 0;
 const timerDisplay = document.getElementById('timer');
 const stopButton = document.getElementById('stop-button');
 const coinCount = document.getElementById('coin-amount');
+const coinDisplay = document.getElementById('coin-amount');
 const pauseButton = document.getElementById('pause-button');
 const titleBar = document.getElementById('title-bar');
 const coinContainer = document.getElementById('coin-container'); // Added reference to coin container
@@ -53,6 +54,24 @@ function pauseTimer() {
         isPaused = true;
     }
 }
+
+// Load coin value from storage or default to 0
+let coins = parseInt(window.persist.get('coins')) || 0;
+coinDisplay.textContent = coins;
+
+
+function addCoins(amount) {
+  coins += amount;
+  coinDisplay.textContent = coins;
+  window.persist.set('coins', coins);
+}
+
+// Optional: Reset coins button (if you want to add it for testing)
+// document.getElementById('reset-button').addEventListener('click', () => {
+//   coins = 0;
+//   coinDisplay.textContent = coins;
+//   window.persist.set('coins', coins);
+// });
 
 function animateCoin() {
     // Get positions of timer and coin container

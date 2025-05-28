@@ -7,6 +7,27 @@
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
  */
 const { contextBridge, ipcRenderer } = require('electron');
+const Store = require('electron-store');
+const store = new Store();
+
+contextBridge.exposeInMainWorld('persist', {
+  get: (key) => {
+    console.log(`Getting value for key: ${key}`);
+    return store.get(key);
+  },
+  set: (key, value) => {
+    console.log(`Setting value for key: ${key} to ${value}`);
+    store.set(key, value);
+  },
+  delete: (key) => {
+    console.log(`Deleting key: ${key}`);
+    store.delete(key);
+  },
+  clear: () => {
+    console.log('Clearing all persisted data');
+    store.clear();
+  },
+});
 
 contextBridge.exposeInMainWorld('electronAPI', {
   openSecondaryWindow: () => {

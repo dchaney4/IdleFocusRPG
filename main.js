@@ -2,6 +2,17 @@
 const { ipcMain, app, BrowserWindow } = require('electron')
 const path = require('node:path')
 
+const coinDisplay = document.getElementById('coin-amount');
+let coins = parseInt(window.persist.get('coins')) || 0;
+coinDisplay.textContent = coins;
+
+
+function addCoins(amount) {
+  coins += amount;
+  coinDisplay.textContent = coins;
+  window.persist.set('coins', coins);
+}
+
 let mainWindow;
 let secondaryWindow;
 let windowPosition = {x: 0, y: 0 };
@@ -155,5 +166,3 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
